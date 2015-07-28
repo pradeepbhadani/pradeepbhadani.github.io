@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="QuickStart : Install Chef-Server 12 : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>QuickStart : Install Chef-Server 12</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/pradeepbhadani">View on GitHub</a>
+
+          <h1 id="project_title">QuickStart : Install Chef-Server 12</h1>
+          <h2 id="project_tagline"></h2>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="install-chef-server-12-on-rhel-6x" class="anchor" href="#install-chef-server-12-on-rhel-6x" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install Chef Server 12 on RHEL 6.x</h1>
+
+<h2>
+<a id="prerequisite" class="anchor" href="#prerequisite" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisite</h2>
+
+<p>Machine should resolve hostname</p>
+
+<ol>
+<li>Get Chef server 12 RPM for RHEL </li>
+</ol>
+
+<pre><code>wget https://web-dl.packagecloud.io/chef/stable/packages/el/6/chef-server-core-12.1.2-1.el6.x86_64.rpm -o chef-server-core-12.1.2-1.el6.x86_64.rpm
+</code></pre>
+
+<ol>
+<li>Install chef-server 12</li>
+</ol>
+
+<pre><code>sudo rpm -Uvh chef-server-core-12.1.2-1.el6.x86_64.rpm
+</code></pre>
+
+<ol>
+<li>Configure chef-server 12</li>
+</ol>
+
+<pre><code>sudo chef-server-ctl reconfigure
+</code></pre>
+
+<ol>
+<li>Create admin user</li>
+</ol>
+
+<pre><code>sudo chef-server-ctl user-create &lt;user_name&gt; &lt;first_name&gt; &lt;last_name&gt; &lt;email&gt; &lt;password&gt; --filename &lt;FILE_NAME
+sudo chef-server-ctl user-create admin admin_fname admin_lname admin@xyz.email adminpswd --filename /home/vagrant/admin.pem
+</code></pre>
+
+<ol>
+<li>Create Organization</li>
+</ol>
+
+<pre><code>sudo chef-server-ctl org-create &lt;short_name&gt; &lt;full_organization_name&gt; --association_user &lt;user_name&gt; --filename &lt;ORGANIZATION-validator.pem&gt;
+sudo chef-server-ctl org-create org "Test Org" --association_user admin --filename /home/vagrant/org-validator.pem
+</code></pre>
+
+<ol>
+<li>Install Chef Manage</li>
+</ol>
+
+<pre><code>sudo chef-server-ctl install opscode-manage
+sudo chef-server-ctl reconfigure
+sudo opscode-manage-ctl reconfigure
+</code></pre>
+
+<ol>
+<li>Install Chef push Job</li>
+</ol>
+
+<pre><code>sudo chef-server-ctl install opscode-push-jobs-server
+sudo chef-server-ctl reconfigure
+sudo opscode-push-jobs-server-ctl reconfigure
+</code></pre>
+
+<ol>
+<li>Install Chef Reporting</li>
+</ol>
+
+<pre><code>sudo chef-server-ctl install opscode-reporting
+sudo chef-server-ctl reconfigure
+sudo opscode-reporting-ctl reconfigure
+</code></pre>
+
+<ol>
+<li>Point your browser to <code>http://&lt;hostname/IP&gt;/</code> to access Chef UI and use credentials generated in <strong>Step4</strong>
+</li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
